@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RMMVplugins", "..\RMMVplugins.njsproj", "{EAFEF73C-3287-43A0-978A-0750FC959B92}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Instant Map Chip Loader", "..\Instant Map Chip Loader.njsproj", "{EB8D420B-8BCA-4A25-80AE-E49FEEBCAFE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EAFEF73C-3287-43A0-978A-0750FC959B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAFEF73C-3287-43A0-978A-0750FC959B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAFEF73C-3287-43A0-978A-0750FC959B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAFEF73C-3287-43A0-978A-0750FC959B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8D420B-8BCA-4A25-80AE-E49FEEBCAFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8D420B-8BCA-4A25-80AE-E49FEEBCAFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8D420B-8BCA-4A25-80AE-E49FEEBCAFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8D420B-8BCA-4A25-80AE-E49FEEBCAFE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

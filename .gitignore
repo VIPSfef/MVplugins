@@ -259,3 +259,31 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Instant Map Chip Loader/Mapchip_Block/audio
+/Instant Map Chip Loader/Mapchip_Block/fonts
+/Instant Map Chip Loader/Mapchip_Block/icon
+/Instant Map Chip Loader/Mapchip_Block/img
+/Instant Map Chip Loader/Mapchip_Block/js/libs
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/SimpleMsgSideView.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/ScreenResolution.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/RS_ScreenManager.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/MadeWithMv.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/ItemBook.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/EnemyBook.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/Community_Basic.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/AltSaveScreen.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/AltMenuScreen.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/WeaponSkill.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/TitleCommandPosition.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins/test_old.js
+/Instant Map Chip Loader/Mapchip_Block/package.json
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_windows.js
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_sprites.js
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_scenes.js
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_objects.js
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_managers.js
+/Instant Map Chip Loader/Mapchip_Block/js/rpg_core.js
+/Instant Map Chip Loader/Mapchip_Block/js/plugins.js
+/Instant Map Chip Loader/Mapchip_Block/js/main.js
+/Instant Map Chip Loader/Mapchip_Block/index.html
+/Instant Map Chip Loader/Mapchip_Block/Game.rpgproject
