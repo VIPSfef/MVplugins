@@ -9,6 +9,7 @@ When you want dynamicly edit map in playing game, this plugin is maybe useful
 
 EX: City builder game on RMMV
 예: RMMV에서의 시티빌딩류의 게임
+
 How it works?
 ------------
 맵 데이터들은 RMMV 편집기에서 자동으로 생성됩니다.
