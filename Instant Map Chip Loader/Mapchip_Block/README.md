@@ -35,7 +35,7 @@ How to use
 
 ### 1. 에셋 파일을 만드세요
 
-create asset"any name you want".json file. ant edit map note to ```$anyoneyouwant```
+create asset"$any name you want".json file. ant edit map note to ```$anyoneyouwant```
 
 에셋 파일은 RMMV에서 저장할 때 자동 생성되는 맵 데이터를 기반으로 합니다. 맵 데이터들은 기본적으로 ```<game folder>\data\MAPnnx.json```의 형태로 저장됩니다. 예를 들어 ID가 1번인 맵 데이터는 MAP001.json이라고 저장됩니다.
 이때, 파일을 불러오기 할 에셋 이름을 맵 노트에 저장하세요. ```$님이원하는글자``` 이때, 2.번 항목에서 저장될 파일 이름과 동일해야 합니다.
