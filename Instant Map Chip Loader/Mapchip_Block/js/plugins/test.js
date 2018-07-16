@@ -6,9 +6,11 @@ var $dataAsset = null;
     var loadobj = {};
     var _loadingassets = 0;
 
-    DataManager.isAssetload = function () {
-        return _loadingassets;
-    }
+    //---------------
+    //수정된 메소드들
+    //---------------
+
+    
 
     DataManager.loadAssetData = function (assetname) {
         var filename = 'asset/' + assetname + '.json';
@@ -49,8 +51,13 @@ var $dataAsset = null;
         }
     };
 
+    //---------------
     //커스텀 메소드들
+    //---------------
 
+    //데이터메니저에서 로딩이 끝났을 때 데이터값이 지도라면 실행
+    //하는일: 지도의 이벤트를 분석해서 불러오기할 에셋 데이터 선정
+    //취약점: 모르겠음
     DataManager.mapParsing = function () {
 
         for (var idx = 0; idx < $dataMap.events.length; idx++) {
@@ -74,7 +81,9 @@ var $dataAsset = null;
 
     };
 
-    //무거움
+    //데이터메니저에서 로딩이 끝났을 때 데이터값이 에샛이라면 실행
+    //하는일: 에셋 데이터가 불러와질때마다 맵데이터 수정
+    //취약점: 메소드에 하중이 가해지면 에셋 데이터가 변조될 수 있음
     DataManager.combinedataMap = function () {
         var offset_x, offset_y;
         var idx_x, idx_y, idx_z;
