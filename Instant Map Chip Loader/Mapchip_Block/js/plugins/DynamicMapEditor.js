@@ -53,7 +53,7 @@ var $dataAsset = null;
     
 
     DataManager.loadAssetData = function (assetname) {
-        var filename = 'asset/' + assetname + '.json';
+        var filename = 'assets/' + assetname + '.json';
         this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataAsset', filename));
         this.loadDataFile('$dataAsset', filename);
     };
