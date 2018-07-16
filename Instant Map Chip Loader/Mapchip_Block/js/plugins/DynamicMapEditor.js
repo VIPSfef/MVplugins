@@ -32,25 +32,26 @@
  * 
  */
 
+//---------------
+//추가된 전역변수
+//---------------
+
+//로드된 에셋 데이터를 저장함
 var $dataAsset = null;
 
 (function () {
-    
-    var loadobj = {};
-    var _loadingassets = 0;
+
+    //---------------
+    //추가된 변수
+    //---------------
+
+    //로드할 에셋 목록을 저장
+    var loadassets = {};
 
     //---------------
     //수정된 메소드들
     //---------------
 
-    
-
-    DataManager.loadAssetData = function (assetname) {
-        var filename = 'assets/' + assetname + '.json';
-        this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataAsset', filename));
-        this.loadDataFile('$dataAsset', filename);
-    };
-    
     //xml 로딩이 끝났을 경우 실행됨
     DataManager.onLoad = function (object) {
         var array;
@@ -77,10 +78,7 @@ var $dataAsset = null;
         //수정된 코드
         if (object === $dataAsset) {
             DataManager.combinedataMap();
-            _loadingassets--;
-            if (!_loadingassets) {
-                loadobj = {};
-            }
+            delete loadassets[$dataAsset.note]
         }
     };
 
@@ -98,20 +96,27 @@ var $dataAsset = null;
             }
             else if ($dataMap.events[idx].note[0] == '$') {
                 
-                if (!Object.keys(loadobj).some(v => v == $dataMap.events[idx].note)) {
-                    loadobj[$dataMap.events[idx].note] = [];
+                if (!Object.keys(loadassets).some(v => v == $dataMap.events[idx].note)) {
+                    loadassets[$dataMap.events[idx].note] = [];
                 }
-                loadobj[$dataMap.events[idx].note].push($dataMap.events[idx].id);
+                loadassets[$dataMap.events[idx].note].push($dataMap.events[idx].id);
             }
         }
         
-        if (Object.keys(loadobj).length) {
-            for (var idx = 0; idx < Object.keys(loadobj).length; idx++) {
-                this.loadAssetData(Object.keys(loadobj)[idx]);
-                _loadingassets++;
+        if (Object.keys(loadassets).length) {
+            for (var idx = 0; idx < Object.keys(loadassets).length; idx++) {
+                this.loadAssetData(Object.keys(loadassets)[idx]);
             }
         }
-
+    };
+    
+    //this.mapParsing에서 에셋 데이터를 불러오기 할 때마다 실행
+    //하는일: this.loadMapData와 비슷하게 에셋 데이터를 로드함
+    //취약점: 모르겠고, filename의 디렉토리를 파라미터 처리하는 방안이 있음
+    DataManager.loadAssetData = function (assetname) {
+        var filename = 'assets/' + assetname + '.json';
+        this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataAsset', filename));
+        this.loadDataFile('$dataAsset', filename);
     };
 
     //데이터메니저에서 로딩이 끝났을 때 데이터값이 에샛이라면 실행
@@ -134,8 +139,8 @@ var $dataAsset = null;
         datalength = $dataAsset.data.length;
 
 
-        for (var idx = 0; idx < loadobj[$dataAsset.note].length; idx++) {
-                event_id = loadobj[$dataAsset.note][idx];
+        for (var idx = 0; idx < loadassets[$dataAsset.note].length; idx++) {
+                event_id = loadassets[$dataAsset.note][idx];
                 offset_x = $dataMap.events[event_id].x
                 offset_y = $dataMap.events[event_id].y
 
@@ -155,7 +160,5 @@ var $dataAsset = null;
         }
         
     }
-
-    
 
 })();
