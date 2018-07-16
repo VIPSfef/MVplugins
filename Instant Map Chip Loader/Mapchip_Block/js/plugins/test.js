@@ -6,37 +6,15 @@ var $dataAsset = null;
     var loadobj = {};
     var _loadingassets = 0;
 
+    DataManager.isAssetload = function () {
+        return _loadingassets;
+    }
+
     DataManager.loadAssetData = function (assetname) {
         var filename = 'asset/' + assetname + '.json';
         this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataAsset', filename));
         this.loadDataFile('$dataAsset', filename);
     };
-
-    
-
-    //Scene_Map.prototype.create = function () {
-    //    Scene_Base.prototype.create.call(this);
-    //    this._transfer = $gamePlayer.isTransferring();
-    //    var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
-    //    DataManager.loadMapData(mapId);
-        
-    //};
-
-    Scene_Map.prototype.isReady = function () {
-        if (!this._mapLoaded && DataManager.isMapLoaded() && !_loadingassets) {
-            this.onMapLoaded();
-            this._mapLoaded = true;
-        }
-        return this._mapLoaded && Scene_Base.prototype.isReady.call(this);
-    };
-
-    //Scene_Map.prototype.onMapLoaded = function () {
-    //    if (this._transfer) {
-    //        $gamePlayer.performTransfer();
-    //    }
-
-    //    this.createDisplayObjects();//기다리게 만들어야함
-    //};
     
     //xml 로딩이 끝났을 경우 실행됨
     DataManager.onLoad = function (object) {
@@ -44,8 +22,7 @@ var $dataAsset = null;
         if (object === $dataMap) {
             this.extractMetadata(object);
             array = object.events;
-            //수정된 부분
-            this.mapParsing();
+            this.mapParsing(); //수정된 코드
         } else {
             array = object;
         }
@@ -62,6 +39,7 @@ var $dataAsset = null;
             Decrypter.hasEncryptedAudio = !!object.hasEncryptedAudio;
             Scene_Boot.loadSystemImages();
         }
+        //수정된 코드
         if (object === $dataAsset) {
             DataManager.combinedataMap();
             _loadingassets--;
@@ -74,9 +52,6 @@ var $dataAsset = null;
     //커스텀 메소드들
 
     DataManager.mapParsing = function () {
-        
-
-        var loadkey = '';
 
         for (var idx = 0; idx < $dataMap.events.length; idx++) {
             if ($dataMap.events[idx] == null) {
