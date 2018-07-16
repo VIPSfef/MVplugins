@@ -7,4 +7,4 @@ I'm Korean dveloper
 
 English are partial supported
 
-비주얼 스튜디오에서 푸시하면 압축과정에 문제가 있는지 한글이 깨지네요
+Unicode UTF-8
