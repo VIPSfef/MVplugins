@@ -12,17 +12,56 @@ var $dataAsset = null;
         this.loadDataFile('$dataAsset', filename);
     };
 
-    Scene_Map.prototype.onMapLoaded = function () {
-        if (this._transfer) {
-            $gamePlayer.performTransfer();
-            this.mapParsing();
+    
+
+    //Scene_Map.prototype.create = function () {
+    //    Scene_Base.prototype.create.call(this);
+    //    this._transfer = $gamePlayer.isTransferring();
+    //    var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
+    //    DataManager.loadMapData(mapId);
+        
+    //};
+
+    Scene_Map.prototype.isReady = function () {
+        if (!this._mapLoaded && DataManager.isMapLoaded() && !_loadingassets) {
+            this.onMapLoaded();
+            this._mapLoaded = true;
         }
-        this.createDisplayObjects();
+        return this._mapLoaded && Scene_Base.prototype.isReady.call(this);
     };
 
-    var DataManager_onLoad = DataManager.onLoad;
+    //Scene_Map.prototype.onMapLoaded = function () {
+    //    if (this._transfer) {
+    //        $gamePlayer.performTransfer();
+    //    }
+
+    //    this.createDisplayObjects();//기다리게 만들어야함
+    //};
+    
+    //xml 로딩이 끝났을 경우 실행됨
     DataManager.onLoad = function (object) {
-        DataManager_onLoad.call(this);
+        var array;
+        if (object === $dataMap) {
+            this.extractMetadata(object);
+            array = object.events;
+            //수정된 부분
+            this.mapParsing();
+        } else {
+            array = object;
+        }
+        if (Array.isArray(array)) {
+            for (var i = 0; i < array.length; i++) {
+                var data = array[i];
+                if (data && data.note !== undefined) {
+                    this.extractMetadata(data);
+                }
+            }
+        }
+        if (object === $dataSystem) {
+            Decrypter.hasEncryptedImages = !!object.hasEncryptedImages;
+            Decrypter.hasEncryptedAudio = !!object.hasEncryptedAudio;
+            Scene_Boot.loadSystemImages();
+        }
         if (object === $dataAsset) {
             DataManager.combinedataMap();
             _loadingassets--;
@@ -34,8 +73,8 @@ var $dataAsset = null;
 
     //커스텀 메소드들
 
-    Scene_Map.prototype.mapParsing = function () {
-        var part_src_loc = new Array($dataMap.events.length);
+    DataManager.mapParsing = function () {
+        
 
         var loadkey = '';
 
@@ -43,17 +82,17 @@ var $dataAsset = null;
             if ($dataMap.events[idx] == null) {
             }
             else if ($dataMap.events[idx].note[0] == '$') {
-                part_src_loc[idx] = [$dataMap.events[idx].note, $dataMap.events[idx].id];
+                
                 if (!Object.keys(loadobj).some(v => v == $dataMap.events[idx].note)) {
                     loadobj[$dataMap.events[idx].note] = [];
                 }
                 loadobj[$dataMap.events[idx].note].push($dataMap.events[idx].id);
             }
         }
-        part_src = part_src_loc.filter(Boolean);//이벤트가 많아지면 성능하락 예상
+        
         if (Object.keys(loadobj).length) {
             for (var idx = 0; idx < Object.keys(loadobj).length; idx++) {
-                DataManager.loadAssetData(Object.keys(loadobj)[idx]);
+                this.loadAssetData(Object.keys(loadobj)[idx]);
                 _loadingassets++;
             }
         }
@@ -82,7 +121,6 @@ var $dataAsset = null;
                 event_id = loadobj[$dataAsset.note][idx];
                 offset_x = $dataMap.events[event_id].x
                 offset_y = $dataMap.events[event_id].y
-                part_src.splice(idx, 1);
 
                 asset_w_real = map_w - offset_x;
                 asset_h_real = map_h - offset_y;
