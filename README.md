@@ -5,4 +5,4 @@ RPG Maker MV의 개발중인 파일을 올리는 임시 레포지토리입니다
 I'm Korean dveloper
 =============
 
-English is partial support
+English are partial supported
