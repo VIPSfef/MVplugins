@@ -7,8 +7,8 @@ What is this?
 When you want dynamicly edit map in playing game, this plugin is maybe useful
 게임상에서 맵타일을 동적으로 수정할 수 있게끔 합니다.
 
-EX: City builder game on RMMV
-예: RMMV에서의 시티빌딩류의 게임
+	EX: City builder game on RMMV
+	예: RMMV에서의 시티빌딩류의 게임
 
 How it works?
 ------------
