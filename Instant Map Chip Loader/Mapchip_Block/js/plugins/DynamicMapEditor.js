@@ -9,7 +9,8 @@
  * @help This plugin does not provide plugin commands.
  * License by GPL.v3
  * 
- * Warning: this plugin edited "DataManager.onLoad" Method. maybe crush other plugin witch edit this method.
+ * Warning: this plugin edited "DataManager.onLoad" Method.
+ * maybe crush other plugin witch edit this method.
  * 
  * How To Use?
  * Please Read "README.md" file.
@@ -17,17 +18,18 @@
  * 
  */
 /*:ko
- * @plugindesc DME는 동적 파일변환 플러그인입니다.
+ * @plugindesc DME는 동적 맵 데이터 변환 플러그인입니다.
  * @author 베지테리안카카오(vcacao) #채식주의자 아님
  *
  *
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
  * License by GPL.v3
  * 
- * 주의: 이 플러그인은 "DataManager.onLoad"메소드를 수정합니다. 이를 수정하는 다른 플러그인과 충돌할 수도 있습니다.
+ * 주의: 이 플러그인은 "DataManager.onLoad"메소드를 수정합니다.
+ * 때문에 이를 수정하는 다른 플러그인과 충돌할 수도 있습니다.
  * 
  * 사용법:
- * "동봉된 README.md"파일을 읽어주세요
+ * 동봉된 "README.md"파일을 읽어주세요
  * https://github.com/VIPSfef/MVplugins/blob/master/Instant%20Map%20Chip%20Loader/Mapchip_Block/README.md
  * 
  */
