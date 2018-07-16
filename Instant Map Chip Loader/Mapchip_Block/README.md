@@ -1,6 +1,6 @@
 # DynamicMapEditor.js
 
-This plugin provide by [LICENSE](MVplugins/LICENSE)
+This plugin provide by [LICENSE](/LICENSE)
 <hr/>
 
 Description
