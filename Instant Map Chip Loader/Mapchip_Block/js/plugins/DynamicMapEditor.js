@@ -7,7 +7,7 @@
  * @author vcacao @resincosmos (베지테리안카카오)
  *
  * @help This plugin does not provide plugin commands.
- * License by GPL.v3
+ * License: MIT @resincosmos 2018
  * 
  * Warning: this plugin edited "DataManager.onLoad" Method.
  * maybe crush other plugin witch edit this method.
@@ -23,7 +23,7 @@
  *
  *
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
- * License by GPL.v3
+ * License: MIT @resincosmos 2018
  * 
  * 주의: 이 플러그인은 "DataManager.onLoad"메소드를 수정합니다.
  * 때문에 이를 수정하는 다른 플러그인과 충돌할 수도 있습니다.
