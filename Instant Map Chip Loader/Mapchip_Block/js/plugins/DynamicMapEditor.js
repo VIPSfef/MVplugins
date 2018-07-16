@@ -1,3 +1,43 @@
+ï»¿//=============================================================================
+// DynamicMapEditor.js
+//=============================================================================
+
+/*:
+ * @plugindesc DME is load asst(json) and patch on map
+ * @author ë² ì§€í…Œë¦¬ì•ˆì¹´ì¹´ì˜¤(vcacao) #ì±„ì‹ì£¼ì˜ì ì•„ë‹˜
+ *
+ * @param displayAttack
+ * @desc Whether to display normal attack. 1:yes 0:no
+ * @default 0
+ *
+ * @param position
+ * @desc Skill name display position. 0:left, 1:center
+ * @default 1
+ *
+ * @help This plugin does not provide plugin commands.
+ * License by GPL.v3
+ * 
+ * Warning: this plugin edited "DataManager.onLoad" Method. maybe crush other plugin witch edit this method.
+ * 
+ * How To Use?
+ * Please Read "README.md" file.
+ */
+/*:ko
+ * @plugindesc DMEëŠ” ë™ì  íŒŒì¼ë³€í™˜ í”ŒëŸ¬ê·¸ì¸ì…ë‹ˆë‹¤.
+ * @author ç¥ç„¡æœˆã‚µã‚¹ã‚±
+ *
+ * @param displayAttack
+ * @desc é€šå¸¸æ”»æ’ƒã‚‚è¡¨ç¤ºã™ã‚‹ã‹ (1:ã™ã‚‹ 0:ã—ãªã„)
+ * @default 0
+ *
+ * @param position
+ * @desc æŠ€åã‚’è¡¨ç¤ºã™ã‚‹ä½ç½® (0:å·¦å¯„ã›, 1:ä¸­å¤®)
+ * @default 1
+ *
+ * @help ã“ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã«ã¯ã€ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚³ãƒãƒ³ãƒ‰ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
+ *
+ * ãƒ­ã‚°ã‚’è¡¨ç¤ºã›ãšã€æŠ€åã®ã¿ã‚’è¡¨ç¤ºã™ã‚‹ã“ã¨ã§ã€æˆ¦é—˜ã®ãƒ†ãƒ³ãƒãŒè‹¥å¹²é«˜é€Ÿã«ãªã‚Šã¾ã™ã€‚
+ */
 
 var $dataAsset = null;
 
@@ -7,7 +47,7 @@ var $dataAsset = null;
     var _loadingassets = 0;
 
     //---------------
-    //¼öÁ¤µÈ ¸Ş¼Òµåµé
+    //ìˆ˜ì •ëœ ë©”ì†Œë“œë“¤
     //---------------
 
     
@@ -18,13 +58,13 @@ var $dataAsset = null;
         this.loadDataFile('$dataAsset', filename);
     };
     
-    //xml ·ÎµùÀÌ ³¡³µÀ» °æ¿ì ½ÇÇàµÊ
+    //xml ë¡œë”©ì´ ëë‚¬ì„ ê²½ìš° ì‹¤í–‰ë¨
     DataManager.onLoad = function (object) {
         var array;
         if (object === $dataMap) {
             this.extractMetadata(object);
             array = object.events;
-            this.mapParsing(); //¼öÁ¤µÈ ÄÚµå
+            this.mapParsing(); //ìˆ˜ì •ëœ ì½”ë“œ
         } else {
             array = object;
         }
@@ -41,7 +81,7 @@ var $dataAsset = null;
             Decrypter.hasEncryptedAudio = !!object.hasEncryptedAudio;
             Scene_Boot.loadSystemImages();
         }
-        //¼öÁ¤µÈ ÄÚµå
+        //ìˆ˜ì •ëœ ì½”ë“œ
         if (object === $dataAsset) {
             DataManager.combinedataMap();
             _loadingassets--;
@@ -52,12 +92,12 @@ var $dataAsset = null;
     };
 
     //---------------
-    //Ä¿½ºÅÒ ¸Ş¼Òµåµé
+    //ì»¤ìŠ¤í…€ ë©”ì†Œë“œë“¤
     //---------------
 
-    //µ¥ÀÌÅÍ¸Ş´ÏÀú¿¡¼­ ·ÎµùÀÌ ³¡³µÀ» ¶§ µ¥ÀÌÅÍ°ªÀÌ Áöµµ¶ó¸é ½ÇÇà
-    //ÇÏ´ÂÀÏ: ÁöµµÀÇ ÀÌº¥Æ®¸¦ ºĞ¼®ÇØ¼­ ºÒ·¯¿À±âÇÒ ¿¡¼Â µ¥ÀÌÅÍ ¼±Á¤
-    //Ãë¾àÁ¡: ¸ğ¸£°ÚÀ½
+    //ë°ì´í„°ë©”ë‹ˆì €ì—ì„œ ë¡œë”©ì´ ëë‚¬ì„ ë•Œ ë°ì´í„°ê°’ì´ ì§€ë„ë¼ë©´ ì‹¤í–‰
+    //í•˜ëŠ”ì¼: ì§€ë„ì˜ ì´ë²¤íŠ¸ë¥¼ ë¶„ì„í•´ì„œ ë¶ˆëŸ¬ì˜¤ê¸°í•  ì—ì…‹ ë°ì´í„° ì„ ì •
+    //ì·¨ì•½ì : ëª¨ë¥´ê² ìŒ
     DataManager.mapParsing = function () {
 
         for (var idx = 0; idx < $dataMap.events.length; idx++) {
@@ -81,9 +121,9 @@ var $dataAsset = null;
 
     };
 
-    //µ¥ÀÌÅÍ¸Ş´ÏÀú¿¡¼­ ·ÎµùÀÌ ³¡³µÀ» ¶§ µ¥ÀÌÅÍ°ªÀÌ ¿¡»ûÀÌ¶ó¸é ½ÇÇà
-    //ÇÏ´ÂÀÏ: ¿¡¼Â µ¥ÀÌÅÍ°¡ ºÒ·¯¿ÍÁú¶§¸¶´Ù ¸Êµ¥ÀÌÅÍ ¼öÁ¤
-    //Ãë¾àÁ¡: ¸Ş¼Òµå¿¡ ÇÏÁßÀÌ °¡ÇØÁö¸é ¿¡¼Â µ¥ÀÌÅÍ°¡ º¯Á¶µÉ ¼ö ÀÖÀ½
+    //ë°ì´í„°ë©”ë‹ˆì €ì—ì„œ ë¡œë”©ì´ ëë‚¬ì„ ë•Œ ë°ì´í„°ê°’ì´ ì—ìƒ›ì´ë¼ë©´ ì‹¤í–‰
+    //í•˜ëŠ”ì¼: ì—ì…‹ ë°ì´í„°ê°€ ë¶ˆëŸ¬ì™€ì§ˆë•Œë§ˆë‹¤ ë§µë°ì´í„° ìˆ˜ì •
+    //ì·¨ì•½ì : ë©”ì†Œë“œì— í•˜ì¤‘ì´ ê°€í•´ì§€ë©´ ì—ì…‹ ë°ì´í„°ê°€ ë³€ì¡°ë  ìˆ˜ ìˆìŒ
     DataManager.combinedataMap = function () {
         var offset_x, offset_y;
         var idx_x, idx_y, idx_z;
