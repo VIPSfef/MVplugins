@@ -1,6 +1,7 @@
 # DynamicMapEditor.js
+
+This plugin provide by [LICENSE](MVplugins/LICENSE)
 <hr/>
-동적 맵 생성기
 
 Description
 ============
