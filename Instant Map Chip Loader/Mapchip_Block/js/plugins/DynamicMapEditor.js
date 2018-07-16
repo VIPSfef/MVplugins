@@ -9,7 +9,8 @@
  * @help This plugin does not provide plugin commands.
  * License by GPL.v3
  * 
- * Warning: this plugin edited "DataManager.onLoad" Method.
+ * Warning: this plugin edited "DataManager.onLoad", 
+ * "Scene_Map.prototype.isReady" Method.
  * maybe crush other plugin witch edit this method.
  * 
  * How To Use?
@@ -25,7 +26,8 @@
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
  * License by GPL.v3
  * 
- * 주의: 이 플러그인은 "DataManager.onLoad"메소드를 수정합니다.
+ * 주의: 이 플러그인은 "DataManager.onLoad"메서드와
+ * "Scene_Map.prototype.isReady" 메서드를 수정합니다.
  * 때문에 이를 수정하는 다른 플러그인과 충돌할 수도 있습니다.
  * 
  * 사용법:
@@ -40,7 +42,7 @@
 
 //로드된 에셋 데이터를 저장함
 var $dataAsset = null;
-
+var loadassets = {};
 (function () {
 
     //---------------
@@ -48,7 +50,7 @@ var $dataAsset = null;
     //---------------
 
     //로드할 에셋 목록을 저장
-    var loadassets = {};
+    
 
     //---------------
     //수정된 메소드들
@@ -60,7 +62,7 @@ var $dataAsset = null;
         if (object === $dataMap) {
             this.extractMetadata(object);
             array = object.events;
-            this.mapParsing(); //수정된 코드
+            this.mapParsing(object); //수정된 코드
         } else {
             array = object;
         }
@@ -84,6 +86,16 @@ var $dataAsset = null;
         }
     };
 
+    //맵을 출력하는 (onMapLoaded)메서드가 실행되는 조건
+    //없어도 작동할 수는 있지만 가끔 로딩이 안되는 등 안정성이 떨어짐
+    Scene_Map.prototype.isReady = function () {
+        if (!this._mapLoaded && DataManager.isMapLoaded() && !Object.keys(loadassets).length) {//수정된 부분
+            this.onMapLoaded();
+            this._mapLoaded = true;
+        }
+        return this._mapLoaded && Scene_Base.prototype.isReady.call(this);
+    };
+
     //---------------
     //커스텀 메소드들
     //---------------
@@ -91,23 +103,36 @@ var $dataAsset = null;
     //데이터메니저에서 로딩이 끝났을 때 데이터값이 지도라면 실행
     //하는일: 지도의 이벤트를 분석해서 불러오기할 에셋 데이터 선정
     //취약점: 모르겠음
-    DataManager.mapParsing = function () {
-
-        for (var idx = 0; idx < $dataMap.events.length; idx++) {
-            if ($dataMap.events[idx] == null) {
-            }
-            else if ($dataMap.events[idx].note[0] == '$') {
-                
-                if (!Object.keys(loadassets).some(v => v == $dataMap.events[idx].note)) {
-                    loadassets[$dataMap.events[idx].note] = [];
+    DataManager.mapParsing = function (object) {
+        if (object === $dataMap) {
+            for (var idx = 0; idx < $dataMap.events.length; idx++) {
+                if ($dataMap.events[idx] == null) {
                 }
-                loadassets[$dataMap.events[idx].note].push($dataMap.events[idx].id);
+                else if ($dataMap.events[idx].note[0] == '$') {
+
+                    if (!Object.keys(loadassets).some(v => v == $dataMap.events[idx].note)) {
+                        loadassets[$dataMap.events[idx].note] = [];
+                    }
+                    loadassets[$dataMap.events[idx].note].push($dataMap.events[idx].id);
+                }
             }
-        }
-        
-        if (Object.keys(loadassets).length) {
-            for (var idx = 0; idx < Object.keys(loadassets).length; idx++) {
-                this.loadAssetData(Object.keys(loadassets)[idx]);
+
+            if (Object.keys(loadassets).length) {
+                for (var idx = 0; idx < Object.keys(loadassets).length; idx++) {
+                    this.loadAssetData(Object.keys(loadassets)[idx]);
+                }
+            }
+
+            for (var idx = 0; idx < $dataMap.events.length; idx++) {
+                if ($dataMap.events[idx] == null) {
+                }
+                else if ($dataMap.events[idx].note[0] == '$') {
+
+                    if (!Object.keys(loadassets).some(v => v == $dataMap.events[idx].note)) {
+                        loadassets[$dataMap.events[idx].note] = [];
+                    }
+                    loadassets[$dataMap.events[idx].note].push($dataMap.events[idx].id);
+                }
             }
         }
     };
@@ -146,18 +171,24 @@ var $dataAsset = null;
                 offset_x = $dataMap.events[event_id].x
                 offset_y = $dataMap.events[event_id].y
 
-                asset_w_real = map_w - offset_x;
-                asset_h_real = map_h - offset_y;
+            if ($dataAsset.events[1] != undefined) {
+                asset_w_real = offset_x - $dataAsset.events[1].x;
+                asset_h_real = offset_y - $dataAsset.events[1].y;
+            } else {
+                asset_w_real = offset_x;
+                asset_h_real = offset_y;
+            }
 
                 for (var asset_idx = 0; asset_idx < datalength; asset_idx++) {
                     idx_z = Math.floor(asset_idx / (asset_w * asset_h));
                     idx_y = Math.floor(asset_idx / asset_w) % asset_h;
                     idx_x = (asset_idx % asset_w);
 
-                    _assetCordnate = (idx_x + offset_x) + (idx_y + offset_y) * map_w + idx_z * (map_w * map_h);
-
-                    if ((map_w > idx_x + offset_x) && (map_h > idx_y + offset_y))
-                    $dataMap.data[_assetCordnate] = $dataAsset.data[asset_idx];
+                    
+                    if ((map_w > idx_x + asset_w_real) && (idx_x + asset_w_real >= 0) && (map_h > idx_y + asset_h_real) && (idx_y + asset_h_real >= 0)) {
+                        _assetCordnate = (idx_x + asset_w_real) + (idx_y + asset_h_real) * map_w + idx_z * (map_w * map_h);
+                        $dataMap.data[_assetCordnate] = $dataAsset.data[asset_idx];
+                    } 
                 }
         }
         
