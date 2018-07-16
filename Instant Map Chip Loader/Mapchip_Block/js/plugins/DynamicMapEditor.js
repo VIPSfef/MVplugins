@@ -4,15 +4,7 @@
 
 /*:
  * @plugindesc DME is load asst(json) and patch on map
- * @author 베지테리안카카오(vcacao) #채식주의자 아님
- *
- * @param displayAttack
- * @desc Whether to display normal attack. 1:yes 0:no
- * @default 0
- *
- * @param position
- * @desc Skill name display position. 0:left, 1:center
- * @default 1
+ * @author vcacao @resincosmos (베지테리안카카오)
  *
  * @help This plugin does not provide plugin commands.
  * License by GPL.v3
@@ -21,22 +13,23 @@
  * 
  * How To Use?
  * Please Read "README.md" file.
+ * https://github.com/VIPSfef/MVplugins/blob/master/Instant%20Map%20Chip%20Loader/Mapchip_Block/README.md
+ * 
  */
 /*:ko
  * @plugindesc DME는 동적 파일변환 플러그인입니다.
- * @author 神無月サスケ
+ * @author 베지테리안카카오(vcacao) #채식주의자 아님
  *
- * @param displayAttack
- * @desc 通常攻撃も表示するか (1:する 0:しない)
- * @default 0
  *
- * @param position
- * @desc 技名を表示する位置 (0:左寄せ, 1:中央)
- * @default 1
- *
- * @help このプラグインには、プラグインコマンドはありません。
- *
- * ログを表示せず、技名のみを表示することで、戦闘のテンポが若干高速になります。
+ * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
+ * License by GPL.v3
+ * 
+ * 주의: 이 플러그인은 "DataManager.onLoad"메소드를 수정합니다. 이를 수정하는 다른 플러그인과 충돌할 수도 있습니다.
+ * 
+ * 사용법:
+ * "동봉된 README.md"파일을 읽어주세요
+ * https://github.com/VIPSfef/MVplugins/blob/master/Instant%20Map%20Chip%20Loader/Mapchip_Block/README.md
+ * 
  */
 
 var $dataAsset = null;
