@@ -7,7 +7,7 @@
  * @author vcacao @resincosmos (베지테리안카카오)
  *
  * @help This plugin does not provide plugin commands.
- * License by MIT
+ * License: MIT @resincosmos 2018
  * 
  * Warning: this plugin edited "DataManager.onLoad", 
  * "Scene_Map.prototype.isReady" Method.
@@ -24,7 +24,7 @@
  *
  *
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
- * License by MIT
+ * License: MIT @resincosmos 2018
  * 
  * 주의: 이 플러그인은 "DataManager.onLoad"메서드와
  * "Scene_Map.prototype.isReady" 메서드를 수정합니다.
