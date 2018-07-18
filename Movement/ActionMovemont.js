@@ -23,6 +23,7 @@
  * @default 3
  * 
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
+ * Provid by MIT lisence @restincosmos 2018
  * 
  * 시간 단위는 기본적으로 프레임이나 milsec일겁니다.
  * 주어진 스크립트 메서드입니다. 
