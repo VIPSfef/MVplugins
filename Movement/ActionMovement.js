@@ -21,6 +21,10 @@
  * @param 이동 방향키 입력 대기시간
  * @desc 아마도 3프레임일겁니다. 아니면 3milsec이거나...
  * @default 2
+ *
+ * @param 대각선 이동 사용여부
+ * @desc 대각선 이동 기능이 있는건 아니지만 캐릭터칩이 망가지지 않게 해줍니다. 별 문제가 없다면 false해도 됩니다.
+ * @defalut true
  * 
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
  * 
@@ -49,6 +53,8 @@
     var _dashingmode = Number(parameters['시작시 대시 플러그인 적용'] || true);
     var _touchmove = Number(parameters['화면 클릭 이동 방지'] || false);
     var _watingtime = Number(parameters['이동 방향키 입력 대기시간'] || 2);
+    var _digchar = Number(parameters['대각선 이동 사용여부'] || true);
+
 
     var _pressingMargin = 15;
     var _safemarge = 0;
@@ -83,15 +89,13 @@
         }
     };
     Game_CharacterBase.prototype.direction = function () {
-        if (Galv.DM.diagGraphic != null) {
-            if (Galv.DM.diagGraphic == false) {
+        if (_digchar == true) {
                 if (this._direction == 1 || this._direction == 7) {
                     this.setDirection(4);
                 }
                 if (this._direction == 9 || this._direction == 3) {
                     this.setDirection(6);
                 }
-            }
         }
         return this._direction;
     };
