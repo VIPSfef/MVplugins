@@ -20,7 +20,7 @@
  * 
  * @param 이동 방향키 입력 대기시간
  * @desc 아마도 3프레임일겁니다. 아니면 3milsec이거나...
- * @default 3
+ * @default 2
  * 
  * @help 이 플러그인은 플러그인커맨드를 사용하지 않습니다.
  * 
@@ -48,14 +48,14 @@
     var _state = Number(parameters['시작시 적용'] || true);
     var _dashingmode = Number(parameters['시작시 대시 플러그인 적용'] || true);
     var _touchmove = Number(parameters['화면 클릭 이동 방지'] || false);
-    var _watingtime = Number(parameters['이동 방향키 입력 대기시간'] || 3);
+    var _watingtime = Number(parameters['이동 방향키 입력 대기시간'] || 2);
 
-    var _pressingMargin = 8;
+    var _pressingMargin = 15;
     var _safemarge = 0;
 
     var _unpressedTimeMax = 1000;
-    var _latestButton_ed = null;
-    var _dashtrigger = true;
+    var _latestButton_ed = 0;
+    var _dashtrigger = false;
 
 
     var Input_clear = Input.clear;
@@ -115,7 +115,7 @@
                 this._pressedTime = 0;
                 this._date = Date.now();
                 if ((this._latestButton != null) && (this._pressedTime > _safemarge)) {
-                    _latestButton_ed = name;
+                    _latestButton_ed = this._dir8;
                 }
             } else if (this._pressedTime > 0){
                 this._unpressedTime = 0;
@@ -123,6 +123,8 @@
             this._previousState[name] = this._currentState[name];
         }
         this._updateDirection();
+        if ($gamePlayer!=null)
+        $gamePlayer.isDashButtonPressed();
     };
     Game_Player.prototype.isDashButtonPressed = function () {
         if (!_dashingmode) {
@@ -135,11 +137,11 @@
         }
         else {
 
-            if ((Input._pressedTime > 0) && (Input._unpressedTime < _pressingMargin)) {
-                if (Input._latestButton == _latestButton_ed) {
+            if ((Input._pressedTime > 5) && (Input._unpressedTime < _pressingMargin)) {
+                if (Input._dir8 == _latestButton_ed) {
                     _dashtrigger = !_dashtrigger;
                 }
-            }else            if (!(Input.isPressed('right') || Input.isPressed('left') || Input.isPressed('up') || Input.isPressed('down')) && (Input._unpressedTime > 5)) {
+            }else if ((!(Input.isPressed('right') || Input.isPressed('left') || Input.isPressed('up') || Input.isPressed('down')) && (Input._unpressedTime > 5))) {
                 _dashtrigger = false
             }
 
