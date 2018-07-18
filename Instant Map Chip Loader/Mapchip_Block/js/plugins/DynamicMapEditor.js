@@ -83,6 +83,16 @@ var $dataAsset = null;
             delete loadassets[$dataAsset.note]
         }
     };
+    
+    //맵을 출력하는 (onMapLoaded)메서드가 실행되는 조건
+    //없어도 작동할 수는 있지만 가끔 로딩이 안되는 등 안정성이 떨어짐
+    Scene_Map.prototype.isReady = function () {
+        if (!this._mapLoaded && DataManager.isMapLoaded() && !Object.keys(loadassets).length) {//수정된 부분
+            this.onMapLoaded();
+            this._mapLoaded = true;
+        }
+        return this._mapLoaded && Scene_Base.prototype.isReady.call(this);
+    };
 
     //---------------
     //커스텀 메소드들
