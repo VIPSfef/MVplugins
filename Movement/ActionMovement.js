@@ -37,6 +37,8 @@
  * 
  * Action_mov.system.safemarge(int); 기본값은 0입니다. 랙이 심해서 대쉬기능에 문제가 있다면 크기를 키워보세요. 하지만 건드리지 않는 게 좋습니다. 값이 커지면 너무 빨리 더블클릭할때 대쉬가 안되게 합니다.
  * 
+ * GALV- 8각이동과 호환됩니다.
+ * 
  */
 
 
@@ -48,7 +50,7 @@
     var _touchmove = Number(parameters['화면 클릭 이동 방지'] || false);
     var _watingtime = Number(parameters['이동 방향키 입력 대기시간'] || 3);
 
-    var _pressingMargin = 10;
+    var _pressingMargin = 8;
     var _safemarge = 0;
 
     var _unpressedTimeMax = 1000;
@@ -80,6 +82,22 @@
             }
         }
     };
+    Game_CharacterBase.prototype.direction = function () {
+        if (Galv.DM.diagGraphic != null) {
+            if (Galv.DM.diagGraphic == false) {
+                if (this._direction == 1 || this._direction == 7) {
+                    this.setDirection(4);
+                }
+                if (this._direction == 9 || this._direction == 3) {
+                    this.setDirection(6);
+                }
+            }
+        }
+        return this._direction;
+    };
+
+
+
     //더블클릭 등을 위한 수정
     Input.update = function () {
         this._pollGamepads();
@@ -128,6 +146,8 @@
             return _dashtrigger;
         }
     };
+
+
     Action_mov.start = function () {
         _state = 1;
     }
@@ -176,7 +196,7 @@
 
         return _pressingMargin;
     }
-    Action_mov.system.safemarge = function (value) {
+    Action_mov.safemarge = function (value) {
         if (time != null)
             _safemarge = value;
 
