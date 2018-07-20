@@ -18,8 +18,8 @@
  * @desc false로 해놓으면 대시 모드 사용 중에 화면 클릭으로 이동이 되지 않게 할 수 있습니다.
  * @default false
  * 
- * @param movee
- * @desc 아마도 3프레임일겁니다. 아니면 3milsec이거나...
+ * @param 키 입력 기다리다 움직이기까지의 시간
+ * @desc 아마도 2프레임일겁니다. 아니면 2milsec이거나...
  * @default 2
  *
  * @param 대각선 이동 사용여부
@@ -52,7 +52,7 @@
     var _state = Number(parameters['시작시 적용'] || true);
     var _dashingmode = Number(parameters['시작시 대시 플러그인 적용'] || true);
     var _touchmove = Number(parameters['화면 클릭 이동 방지'] || false);
-    var _watingtime = Number(parameters['movee'] || 2);
+    var _watingtime = Number(parameters['키 입력 기다리다 움직이기까지의 시간'] || 2);
     var _digchar = Number(parameters['대각선 이동 사용여부'] || true);
 
 
